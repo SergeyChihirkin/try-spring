@@ -3,10 +3,39 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:auditorium.properties"/>
+    </bean>
+
     <bean id="userDao" class="daosimpleimpl.UserDaoSimpleImpl"/>
 
     <bean id="userService" class="serviceimpl.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="auditoriumDao" class="daosimpleimpl.AuditoriumDaoSimpleImpl">
+        <constructor-arg>
+            <set>
+                <ref bean="auditorium1" />
+                <ref bean="auditorium2" />
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="auditorium1" class="domain.Auditorium">
+        <property name="name" value="${firstAuditorium.name}" />
+        <property name="vipSeats" value="#{'${firstAuditorium.vipSeats}'.split(',')}" />
+        <property name="numberOfSeats" value="${firstAuditorium.numberOfSeats}" />
+    </bean>
+
+    <bean id="auditorium2" class="domain.Auditorium">
+        <property name="name" value="${secondAuditorium.name}" />
+        <property name="vipSeats" value="#{'${secondAuditorium.vipSeats}'.split(',')}" />
+        <property name="numberOfSeats" value="${secondAuditorium.numberOfSeats}" />
+    </bean>
+
+    <bean id="auditoriumService" class="serviceimpl.AuditoriumServiceSimpleImpl">
+        <property name="auditoriumDao" ref="auditoriumDao"/>
     </bean>
 
 </beans>
