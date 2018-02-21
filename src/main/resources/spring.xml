@@ -38,4 +38,10 @@
         <property name="auditoriumDao" ref="auditoriumDao"/>
     </bean>
 
+    <bean id="eventDao" class="daosimpleimpl.EventDaoSimpleImpl"/>
+
+    <bean id="eventService" class="serviceimpl.EventServiceSimpleImpl">
+        <property name="eventDao" ref="eventDao"/>
+    </bean>
+
 </beans>
