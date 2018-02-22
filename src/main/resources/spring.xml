@@ -44,4 +44,9 @@
         <property name="eventDao" ref="eventDao"/>
     </bean>
 
+    <bean id="birthdayStrategy" class="serviceimpl.BirthdayDiscountStrategy" >
+        <property name="discountSize" value="5" />
+        <property name="maxDaysDiff" value="5" />
+    </bean>
+
 </beans>
