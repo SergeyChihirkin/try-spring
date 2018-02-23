@@ -1,5 +1,6 @@
 import domain.User;
 import serviceimpl.BirthdayDiscountStrategy;
+import serviceimpl.TicketNumberDiscountStrategy;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,11 +14,31 @@ import java.time.LocalDateTime;
 @ContextConfiguration(locations = {"spring.xml"})
 public class DiscountStrategiesTests {
     private BirthdayDiscountStrategy birthdayDiscountStrategy;
+    private TicketNumberDiscountStrategy ticketNumberDiscountStrategy;
 
     @BeforeClass
     public void init() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         birthdayDiscountStrategy = context.getBean(BirthdayDiscountStrategy.class);
+        ticketNumberDiscountStrategy = context.getBean(TicketNumberDiscountStrategy.class);
+    }
+
+    @Test
+    public void testTicketNumberDiscountStrategy() {
+        boolean hasDiscount = ticketNumberDiscountStrategy.hasDiscount(null, null, null, 10);
+        Assert.assertTrue(hasDiscount, "Ticket number discount strategy doen't work");
+
+        hasDiscount = ticketNumberDiscountStrategy.hasDiscount(null, null, null, 0);
+        Assert.assertFalse(hasDiscount, "Ticket number discount strategy doen't work");
+
+        hasDiscount = ticketNumberDiscountStrategy.hasDiscount(null, null, null, 11);
+        Assert.assertFalse(hasDiscount, "Ticket number discount strategy doen't work");
+
+        hasDiscount = ticketNumberDiscountStrategy.hasDiscount(null, null, null, 9);
+        Assert.assertFalse(hasDiscount, "Ticket number discount strategy doen't work");
+
+        hasDiscount = ticketNumberDiscountStrategy.hasDiscount(null, null, null, 30);
+        Assert.assertTrue(hasDiscount, "Ticket number discount strategy doen't work");
     }
 
     @Test
