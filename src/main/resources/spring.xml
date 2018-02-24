@@ -44,6 +44,16 @@
         <property name="eventDao" ref="eventDao"/>
     </bean>
 
+    <bean id="ticketDao" class="daosimpleimpl.TicketDaoSimpleImpl"/>
+
+    <bean id="bookingService" class="serviceimpl.BookingServiceSimpleImpl">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="discountService"/>
+        <property name="vipMultiplier" value="2" />
+        <property name="highRatingMultipier" value="1.2" />
+        <property name="ticketDao" ref="ticketDao" />
+    </bean>
+
     <bean id="discountService" class="serviceimpl.DiscountServiceSimpleImpl" init-method="init">
         <constructor-arg>
             <list>

@@ -1,13 +1,17 @@
 package domain;
 
 import java.time.LocalDate;
+import java.util.NavigableSet;
 import java.util.Objects;
+import java.util.TreeSet;
 
 public class User extends DomainObject {
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate birthDate;
+
+    private NavigableSet<Ticket> tickets = new TreeSet<>();
 
     public User() {}
 
@@ -48,6 +52,14 @@ public class User extends DomainObject {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public NavigableSet<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(NavigableSet<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override
