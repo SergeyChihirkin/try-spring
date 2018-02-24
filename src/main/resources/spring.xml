@@ -44,6 +44,15 @@
         <property name="eventDao" ref="eventDao"/>
     </bean>
 
+    <bean id="discountService" class="serviceimpl.DiscountServiceSimpleImpl" init-method="init">
+        <constructor-arg>
+            <list>
+                <ref bean="birthdayStrategy" />
+                <ref bean="ticketNumberStrategy" />
+            </list>
+        </constructor-arg>
+    </bean>
+
     <bean id="birthdayStrategy" class="serviceimpl.BirthdayDiscountStrategy" >
         <property name="discountSize" value="5" />
         <property name="maxDaysDiff" value="5" />
